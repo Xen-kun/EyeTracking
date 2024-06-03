@@ -5,10 +5,10 @@ mp_face_mesh = mp.solutions.face_mesh
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 
-# Initialize video capture
+# Starting the video capture
 cap = cv2.VideoCapture(0)
 
-# Continuous loop to process webcam frames
+# use loop to continuesly process webcam
 with mp_face_mesh.FaceMesh(
     max_num_faces=1,
     refine_landmarks=True,
@@ -21,7 +21,7 @@ with mp_face_mesh.FaceMesh(
         if not ret:
             break
 
-        # Flip the frame horizontally for better landmark visualization
+        # Revert the frame horizontally for mirroring
         frame = cv2.flip(frame, 1)
 
         # Convert the frame from BGR to RGB
@@ -76,7 +76,7 @@ with mp_face_mesh.FaceMesh(
                 x_max_left = int(left_eye_bbox[2] * iw) + 20
                 y_max_left = int(left_eye_bbox[3] * ih) + 20
 
-                # Ensure the coordinates are within frame boundaries
+                
                 x_min_left = max(x_min_left, 0)
                 y_min_left = max(y_min_left, 0)
                 x_max_left = min(x_max_left, iw)
@@ -93,7 +93,7 @@ with mp_face_mesh.FaceMesh(
                     max([face_landmarks.landmark[idx].y for idx in RIGHT_EYE_LANDMARKS])
                 )
 
-                # Ensure the coordinates are within frame boundaries
+                
                 x_min_right = int(right_eye_bbox[0] * iw) - 20
                 y_min_right = int(right_eye_bbox[1] * ih) - 20
                 x_max_right = int(right_eye_bbox[2] * iw) + 20
